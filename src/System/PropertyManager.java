@@ -1,5 +1,6 @@
 package System;
 
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,9 +10,12 @@ public class PropertyManager {
 
     public PropertyManager(){
     	
-    	properties.add(new Property("Property_1", 2, 2, 100000));
-    	properties.add(new Property("Property_2", 3, 3, 200000));
     	System.out.println("Created properties");
+    }
+    
+    public void addProperty(String name, int district, int num_beds, int price, Calendar start, Calendar end) {
+    	
+    	properties.add(new Property(name, district, num_beds, price, start, end));
     }
 
     public int getAmountOfProperties() {
