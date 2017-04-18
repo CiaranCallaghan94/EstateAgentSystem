@@ -1,8 +1,7 @@
 package System;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 
 public class PropertyManager {
 
@@ -11,7 +10,7 @@ public class PropertyManager {
     public PropertyManager(){
     	
     	properties.add(new Property("Property_1", 2, 2, 100000));
-    	properties.add(new Property("Property 2", 3, 3, 200000));
+    	properties.add(new Property("Property_2", 3, 3, 200000));
     	System.out.println("Created properties");
     }
 
