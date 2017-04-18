@@ -18,11 +18,17 @@ public class EstateAgentImplementation{
         return allProperties;
     }
     
-    public boolean listPropertyForSale(@WebParam(name = "name") String name, int district, int num_bedrooms, int price,
-    		int start_year, int start_month, int start_date, int end_year, int end_month, int end_date) {
+    public boolean listPropertyForSale(
+    		@WebParam(name = "name") String name, 				@WebParam(name = "district")int district, 
+    		@WebParam(name = "num_bedrooms") int num_bedrooms, 	@WebParam(name = "price") int price,
+    		@WebParam(name = "start_year") int start_year, 		@WebParam(name = "start_month") int start_month, 
+    		@WebParam(name = "start_date") int start_date, 		@WebParam(name = "end_year") int end_year, 
+    		@WebParam(name = "end_month") int end_month, 		@WebParam(name = "end_date") int end_date) {
     	
     	Calendar start = new GregorianCalendar(start_year, start_month, start_date);
     	Calendar end = new GregorianCalendar(end_year, end_month, end_date);
+    	
+    	System.out.println("Listing property");
     	
     	propertyManager.addProperty(name, district, num_bedrooms, price, start, end);
     	return true;
