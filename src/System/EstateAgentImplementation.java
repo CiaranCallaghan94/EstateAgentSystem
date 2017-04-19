@@ -13,10 +13,12 @@ public class EstateAgentImplementation{
 
 	private PropertyManager propertyManager = new PropertyManager();
 
+	
     public List<Property> getProperties() {
         List<Property> allProperties = propertyManager.getProperties();
         return allProperties;
     }
+    
     
     public boolean listPropertyForSale(
     		@WebParam(name = "name") String name, 				@WebParam(name = "district")int district, 
@@ -34,21 +36,16 @@ public class EstateAgentImplementation{
     	return true;
     }
 
-	public boolean placeBidOnProperty(@WebParam(name = "name") String name, @WebParam(name = "bidAmount")double bidAmount) {
+    
+	public String placeBidOnProperty(
+			@WebParam(name = "client_id") int client_id, 
+			@WebParam(name = "property_id") int property_id, 
+			@WebParam(name = "bid_amount") double bid_amount) {
 
-		Property property = propertyManager.getProperty(name);
-
-		if(property != null) {
-
-			if (property.isListed()) {
-
-				if (bidAmount >= property.getAuction_price() && bidAmount > property.getHighest_bid()) {
-
-					property.setHighest_bid(bidAmount);
-					return true;
-				}
-			}
-		}
-		return false;
+		Property property = propertyManager.getProperty(property_id);
+		if(property == null)
+			return "Property not found";
+		
+		return property.setHighestBid(client_id, bid_amount);
 	}
 }
