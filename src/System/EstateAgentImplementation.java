@@ -62,4 +62,41 @@ public class EstateAgentImplementation{
 		
 		return property.setHighestBid(client_id, bid_amount);
 	}
+	
+	// Get all viewing times and details for a particular property
+	public List<Booking> getViewingTimes(@WebParam(name = "property_id") int property_id) {
+		
+		Property property = propertyManager.getProperty(property_id);
+		if(property == null)
+			return null;
+		else
+			return property.getViewingTimes();
+	}
+	
+	// Add viewing times
+	public boolean addViewingTime(
+			@WebParam(name = "property_id") int property_id,
+			@WebParam(name = "start_year") int year, @WebParam(name = "start_month") int month, 
+    		@WebParam(name = "start_date") int day,  @WebParam(name = "time") int time) {
+		
+		Calendar date = new GregorianCalendar(year, month, day, time, 0);
+		Property property = propertyManager.getProperty(property_id);
+		if(property == null)
+			return false;
+		
+		property.setViewingTime(date);
+		return true;
+	}
+	
+	public boolean placeBooking(
+			@WebParam(name = "client_id") int client_id,
+			@WebParam(name = "property_id") int property_id,
+			@WebParam(name = "booking_id") int booking_id) {
+		
+		Property property = propertyManager.getProperty(property_id);
+		if(property == null)
+			return false;
+		
+		return property.setBooking(client_id, booking_id);
+	}
 }

@@ -32,7 +32,6 @@ public class PropertyManager {
     		System.out.println("Start after end");
     		return false;
     	}
-    	
     	return true;
     }
 
@@ -43,13 +42,12 @@ public class PropertyManager {
 	public List<Property> getProperties() {
 
         properties.sort((p1, p2) -> Double.compare(p1.getAuctionPrice(), p2.getAuctionPrice()));
-
 		return properties;
 	}
 
     public Property getProperty(int index){
 
-    	if(index > properties.size() || index < 0) {
+    	if(index > properties.size()-1 || index < 0) {
     		return null;
     	}
     	return properties.get(index);

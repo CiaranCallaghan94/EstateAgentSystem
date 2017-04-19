@@ -14,10 +14,12 @@ class Property {
     private int		num_bedrooms;
     private Double	auction_price;
 
-    private List<Bid> bid_history;
-
     private Calendar start_sale_time;
     private Calendar end_sale_time;
+    
+    private List<Bid> bid_history;
+    
+    private BookingManager booking_manager;
     
     private final Lock lock = new ReentrantLock();
 
@@ -35,6 +37,7 @@ class Property {
         this.end_sale_time 	 = end_sale_time;
         
         bid_history = new LinkedList<>();
+        booking_manager = new BookingManager();
     }
 
     public String getName() {
@@ -139,6 +142,26 @@ class Property {
             return true;
         }
         else return false;
+    }
+    
+    public List<Booking> getViewingTimes() {
+    	return booking_manager.getViewings();
+    }
+    
+    public boolean setViewingTime(Calendar date) {
+    	
+    	// If viewing start date is after sale start date OR viewing end date is after sale end date
+    	if(date.compareTo(this.start_sale_time) < 0 || date.compareTo(this.end_sale_time) > 0) {
+    		System.out.println("Invalid date");
+    		return false;
+    	}
+    	
+    	booking_manager.setViewings(date);
+    	return true;
+    }
+    
+    public boolean setBooking(int client_id, int booking_id) {
+    	return booking_manager.setBooking(client_id, booking_id);
     }
 
     @Override
