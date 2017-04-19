@@ -35,7 +35,6 @@ class Property {
         this.end_sale_time 	 = end_sale_time;
         
         bid_history = new LinkedList<>();
-        bid_history.add(new Bid(-1, price));
     }
 
     public String getName() {
@@ -83,7 +82,10 @@ class Property {
     }
 
     public double getHighestBid() {
-        return getLatestBid().getBidAmount();
+    	if(bid_history.isEmpty())
+    		return this.auction_price;
+    	else
+    		return getLatestBid().getBidAmount();
     }
 
     public String setHighestBid(int client_id, double bid_amount) {
@@ -91,19 +93,19 @@ class Property {
         if(!isListed())
         	return "Bid unsucessful: Property not listed";
         
-        if(bid_amount > getHighestBid()) {
+        double highest_bid = getHighestBid();
+        if(bid_amount > highest_bid) {
         	
         	Bid new_bid = new Bid(client_id, bid_amount);
         	bid_history.add(new_bid);
         	
-        	// A size of two means that the bid we just added was the first bid
-        	// as we also add one on construction to represent the bid_minimum
-        	if(bid_history.size() == 2) {
+        	// A size of one means that the bid we just added was the first bid
+        	if(bid_history.size() == 1) {
     			return "Initial bid sucessful";
     		}
         	else return "Counter-bid succesful";
         }
-        else return "Bid unsuccessful: Bid too low. The highest bid is: " + getHighestBid();
+        else return "Bid unsucessful: Bid too low. The highest bid is: " + highest_bid;
     }
 
     public Calendar getStartSaleTime() {
@@ -120,6 +122,14 @@ class Property {
 
     public void setEndSaleTime(Calendar end_sale_time) {
         this.end_sale_time = end_sale_time;
+    }
+    
+    public List<Bid> getBids() {
+    	return bid_history;
+    }
+    
+    public void setBids(List<Bid> bid_history) {
+    	this.bid_history = bid_history;
     }
 
     public boolean isListed(){
