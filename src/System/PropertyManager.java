@@ -24,6 +24,9 @@ public class PropertyManager {
     }
 
 	public List<Property> getProperties() {
+
+        properties.sort((p1, p2) -> new Integer(p1.getAuctionPrice()).compareTo(new Integer(p2.getAuctionPrice())));
+
 		return properties;
 	}
 

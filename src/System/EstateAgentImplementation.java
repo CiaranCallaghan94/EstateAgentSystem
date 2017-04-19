@@ -5,6 +5,7 @@ import javax.jws.WebService;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
 import java.util.List;
 
 // Service Endpoint
@@ -15,9 +16,24 @@ public class EstateAgentImplementation{
 
 	
     public List<Property> getProperties() {
-        List<Property> allProperties = propertyManager.getProperties();
-        return allProperties;
-    }
+		List<Property> allProperties = propertyManager.getProperties();
+		return allProperties;
+	}
+
+	public List<Property> getPropertiesInPriceRange(@WebParam(name = "minPrice")int min, @WebParam(name = "maxPrice")int max) {
+		List<Property> allProperties = propertyManager.getProperties();
+		List<Property> propertiesInRange = new LinkedList<>();
+
+		for(Property p : allProperties){
+
+			if(p.getAuctionPrice() >= min && p.getAuctionPrice() <= max){
+				propertiesInRange.add(p);
+			}
+		}
+		return propertiesInRange;
+	}
+
+
     
     
     public boolean listPropertyForSale(

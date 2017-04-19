@@ -103,7 +103,7 @@ class Property {
     		}
         	else return "Counter-bid succesful";
         }
-        else return "Bid unsucessful: Bid too low. The highest bid is: " + getHighestBid();
+        else return "Bid unsuccessful: Bid too low. The highest bid is: " + getHighestBid();
     }
 
     public Calendar getStartSaleTime() {
