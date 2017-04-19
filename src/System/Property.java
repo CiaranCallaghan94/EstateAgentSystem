@@ -1,17 +1,20 @@
 package System;
 
 import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 class Property {
 
+	private int		property_id;
     private String 	name;
     private int 	district;
     private int		num_bedrooms;
     private int		auction_price;
 
-    private double  highest_bid = 0;
+    private List<Bid> bid_history;
 
     private Calendar start_sale_time;
     private Calendar end_sale_time;
@@ -30,6 +33,9 @@ class Property {
         
         this.start_sale_time = start_sale_time;
         this.end_sale_time 	 = end_sale_time;
+        
+        bid_history = new LinkedList<>();
+        bid_history.add(new Bid(-1, price));
     }
 
     public String getName() {
@@ -38,6 +44,14 @@ class Property {
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public int getPropertyId() {
+    	return this.property_id;
+    }
+    
+    public void setPropertyId(int id) {
+    	this.property_id = id;
     }
 
     public int getDistrict() {
@@ -48,50 +62,70 @@ class Property {
         this.district = district;
     }
 
-    public int getNum_bedrooms() {
+    public int getNumBedrooms() {
         return num_bedrooms;
     }
 
-    public void setNum_bedrooms(int num_bedrooms) {
+    public void setNumBedrooms(int num_bedrooms) {
         this.num_bedrooms = num_bedrooms;
     }
 
-    public int getAuction_price() {
+    public int getAuctionPrice() {
         return auction_price;
     }
 
-    public void setAuction_price(int price) {
+    public void setAuctionPrice(int price) {
         this.auction_price = price;
     }
-
-    public double getHighest_bid() {
-        return highest_bid;
+    
+    public Bid getLatestBid() {
+    	return bid_history.get(bid_history.size()-1);
     }
 
-    public void setHighest_bid(double highest_bid) {
-        this.highest_bid = highest_bid;
+    public double getHighestBid() {
+        return getLatestBid().getBidAmount();
     }
 
-    public Calendar getStart_sale_time() {
+    public String setHighestBid(int client_id, double bid_amount) {
+        
+        if(!isListed())
+        	return "Bid unsucessful: Property not listed";
+        
+        if(bid_amount > getHighestBid()) {
+        	
+        	Bid new_bid = new Bid(client_id, bid_amount);
+        	bid_history.add(new_bid);
+        	
+        	// A size of two means that the bid we just added was the first bid
+        	// as we also add one on construction to represent the bid_minimum
+        	if(bid_history.size() == 2) {
+    			return "Initial bid sucessful";
+    		}
+        	else return "Counter-bid succesful";
+        }
+        else return "Bid unsucessful: Bid too low. The highest bid is: " + getHighestBid();
+    }
+
+    public Calendar getStartSaleTime() {
         return start_sale_time;
     }
 
-    public void setStart_sale_time(Calendar start_sale_time) {
+    public void setStartSaleTime(Calendar start_sale_time) {
         this.start_sale_time = start_sale_time;
     }
 
-    public Calendar getEnd_sale_time() {
+    public Calendar getEndSaleTime() {
         return end_sale_time;
     }
 
-    public void setEnd_sale_time(Calendar end_sale_time) {
+    public void setEndSaleTime(Calendar end_sale_time) {
         this.end_sale_time = end_sale_time;
     }
 
     public boolean isListed(){
 
         Calendar cal = Calendar.getInstance();
-        if(cal.compareTo(getStart_sale_time()) >= 0 && cal.compareTo(getEnd_sale_time()) <= 0){
+        if(cal.compareTo(getStartSaleTime()) >= 0 && cal.compareTo(getEndSaleTime()) <= 0){
             return true;
         }
         else return false;
@@ -101,7 +135,4 @@ class Property {
     public String toString() {
         return this.name;
     }
-
-
-
 }
