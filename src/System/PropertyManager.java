@@ -7,9 +7,11 @@ import java.util.List;
 public class PropertyManager {
 
     private List<Property> properties;
+    NotificationManager notificationManager;
 
-    public PropertyManager(){
+    public PropertyManager(NotificationManager notificationManager){
     	properties = new LinkedList<Property>();
+        this.notificationManager = notificationManager;
     }
     
     public boolean addProperty(String name, int district, int num_beds, double price, Calendar start, Calendar end) {
@@ -17,7 +19,7 @@ public class PropertyManager {
     	if(!propertyValid(district, num_beds, price, start, end))
     		return false;
     	
-    	Property new_prop = new Property(name, district, num_beds, price, start, end);
+    	Property new_prop = new Property(notificationManager,name, district, num_beds, price, start, end);
     	properties.add(new_prop);
     	new_prop.setPropertyId(properties.indexOf(new_prop));
     	return true;
@@ -34,10 +36,6 @@ public class PropertyManager {
     	}
     	
     	return true;
-    }
-
-    public int getAmountOfProperties() {
-        return properties.size();
     }
 
 	public List<Property> getProperties() {

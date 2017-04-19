@@ -18,15 +18,17 @@ class Property {
 
     private Calendar start_sale_time;
     private Calendar end_sale_time;
-    
+
+    private NotificationManager notificationManager;
     private final Lock lock = new ReentrantLock();
 
     Property() {
     }
 
-    Property(String name, int district, int num_bedrooms, double auction_price, Calendar start_sale_time, Calendar end_sale_time) {
+    Property(NotificationManager notificationManager,String name, int district, int num_bedrooms, double auction_price, Calendar start_sale_time, Calendar end_sale_time) {
 
-        this.name 			= name;
+        this.notificationManager = notificationManager;
+        this.name           = name;
         this.district 		= district;
         this.num_bedrooms 	= num_bedrooms;
         this.auction_price	= auction_price;
@@ -69,12 +71,12 @@ class Property {
         this.num_bedrooms = num_bedrooms;
     }
 
-    public Double getAuctionPrice() {
+    public double getAuctionPrice() {
         return auction_price;
     }
 
-    public void setAuctionPrice(double price) {
-        this.auction_price = price;
+    public void setAuctionPrice(double auction_price) {
+        this.auction_price = auction_price;
     }
     
     public Bid getLatestBid() {
@@ -95,7 +97,12 @@ class Property {
         
         double highest_bid = getHighestBid();
         if(bid_amount > highest_bid) {
-        	
+
+            // Notifies the previous bid leader that they have been outbid, prompting them to make a counter offer
+            if(bid_history.size()>0) {
+                notificationManager.addNotification(bid_history.get(bid_history.size() - 1).getClientId(),
+                        "You have been outbid on property " + getName() + "(" + getPropertyId() + ") at a price of " +bid_amount );
+            }
         	Bid new_bid = new Bid(client_id, bid_amount);
         	bid_history.add(new_bid);
         	

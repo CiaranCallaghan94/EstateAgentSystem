@@ -12,7 +12,8 @@ import java.util.List;
 @WebService
 public class EstateAgentImplementation{
 
-	private PropertyManager propertyManager = new PropertyManager();
+	private NotificationManager notificationManager = new NotificationManager();
+	private PropertyManager propertyManager = new PropertyManager(notificationManager);
 
 	// Return all the properties and their details, including their bid history
     public List<Property> getProperties() {
@@ -61,5 +62,15 @@ public class EstateAgentImplementation{
 			return "Property not found";
 		
 		return property.setHighestBid(client_id, bid_amount);
+	}
+
+	public List<Notification> getNotifications(){
+
+		return notificationManager.getNotifications();
+	}
+
+	public List<Notification> getNotificationsForClient(@WebParam(name = "client_id")int client_id){
+
+		return notificationManager.getNotificationsForClient(client_id);
 	}
 }
