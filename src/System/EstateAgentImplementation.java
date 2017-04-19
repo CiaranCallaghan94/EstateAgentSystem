@@ -33,4 +33,22 @@ public class EstateAgentImplementation{
     	propertyManager.addProperty(name, district, num_bedrooms, price, start, end);
     	return true;
     }
+
+	public boolean placeBidOnProperty(@WebParam(name = "name") String name, @WebParam(name = "bidAmount")double bidAmount) {
+
+		Property property = propertyManager.getProperty(name);
+
+		if(property != null) {
+
+			if (property.isListed()) {
+
+				if (bidAmount > property.getHighest_bid()) {
+
+					property.setHighest_bid(bidAmount);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }

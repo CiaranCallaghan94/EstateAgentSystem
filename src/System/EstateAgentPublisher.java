@@ -8,6 +8,6 @@ public class EstateAgentPublisher {
     public static void main(String[]args) {
     	
         EstateAgentImplementation manager = new EstateAgentImplementation();
-        Endpoint.publish("http://localhost:8000/EstateAgent", manager);
+        Endpoint.publish("http://localhost:8080/EstateAgent", manager);
     }
 }
