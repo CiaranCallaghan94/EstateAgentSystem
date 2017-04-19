@@ -12,7 +12,7 @@ class Property {
     private String 	name;
     private int 	district;
     private int		num_bedrooms;
-    private int		auction_price;
+    private Double	auction_price;
 
     private List<Bid> bid_history;
 
@@ -24,12 +24,12 @@ class Property {
     Property() {
     }
 
-    Property(String name, int district, int num_bedrooms, int price, Calendar start_sale_time, Calendar end_sale_time) {
+    Property(String name, int district, int num_bedrooms, double auction_price, Calendar start_sale_time, Calendar end_sale_time) {
 
         this.name 			= name;
         this.district 		= district;
         this.num_bedrooms 	= num_bedrooms;
-        this.auction_price	= price;
+        this.auction_price	= auction_price;
         
         this.start_sale_time = start_sale_time;
         this.end_sale_time 	 = end_sale_time;
@@ -69,11 +69,11 @@ class Property {
         this.num_bedrooms = num_bedrooms;
     }
 
-    public int getAuctionPrice() {
+    public Double getAuctionPrice() {
         return auction_price;
     }
 
-    public void setAuctionPrice(int price) {
+    public void setAuctionPrice(double price) {
         this.auction_price = price;
     }
     

@@ -12,7 +12,7 @@ public class PropertyManager {
     	properties = new LinkedList<Property>();
     }
     
-    public boolean addProperty(String name, int district, int num_beds, int price, Calendar start, Calendar end) {
+    public boolean addProperty(String name, int district, int num_beds, double price, Calendar start, Calendar end) {
     	
     	if(!propertyValid(district, num_beds, price, start, end))
     		return false;
@@ -23,7 +23,7 @@ public class PropertyManager {
     	return true;
     }
     
-    public boolean propertyValid(int district, int num_beds, int price, Calendar start, Calendar end) {
+    public boolean propertyValid(int district, int num_beds, double price, Calendar start, Calendar end) {
     	
     	if(district < 0 || num_beds < 0 || price < 0)
     		return false;
@@ -42,7 +42,7 @@ public class PropertyManager {
 
 	public List<Property> getProperties() {
 
-        properties.sort((p1, p2) -> new Integer(p1.getAuctionPrice()).compareTo(new Integer(p2.getAuctionPrice())));
+        properties.sort((p1, p2) -> Double.compare(p1.getAuctionPrice(), p2.getAuctionPrice()));
 
 		return properties;
 	}
