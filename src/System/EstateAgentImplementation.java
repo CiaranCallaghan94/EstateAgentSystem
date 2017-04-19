@@ -14,12 +14,13 @@ public class EstateAgentImplementation{
 
 	private PropertyManager propertyManager = new PropertyManager();
 
-	
+	// Return all the properties and their details, including their bid history
     public List<Property> getProperties() {
 		List<Property> allProperties = propertyManager.getProperties();
 		return allProperties;
 	}
 
+    // Return all the properties and their details within a price range
 	public List<Property> getPropertiesInPriceRange(@WebParam(name = "minPrice")int min, @WebParam(name = "maxPrice")int max) {
 		List<Property> allProperties = propertyManager.getProperties();
 		List<Property> propertiesInRange = new LinkedList<>();
@@ -32,10 +33,8 @@ public class EstateAgentImplementation{
 		}
 		return propertiesInRange;
 	}
-
-
     
-    
+	// Add a property listing
     public boolean listPropertyForSale(
     		@WebParam(name = "name") String name, 				@WebParam(name = "district")int district, 
     		@WebParam(name = "num_bedrooms") int num_bedrooms, 	@WebParam(name = "price") int price,
@@ -48,11 +47,10 @@ public class EstateAgentImplementation{
     	
     	System.out.println("Listing property");
     	
-    	propertyManager.addProperty(name, district, num_bedrooms, price, start, end);
-    	return true;
+    	return propertyManager.addProperty(name, district, num_bedrooms, price, start, end);
     }
 
-    
+    // Place a bid on a property
 	public String placeBidOnProperty(
 			@WebParam(name = "client_id") int client_id, 
 			@WebParam(name = "property_id") int property_id, 

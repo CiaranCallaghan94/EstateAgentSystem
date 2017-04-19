@@ -12,11 +12,28 @@ public class PropertyManager {
     	properties = new LinkedList<Property>();
     }
     
-    public void addProperty(String name, int district, int num_beds, int price, Calendar start, Calendar end) {
+    public boolean addProperty(String name, int district, int num_beds, int price, Calendar start, Calendar end) {
+    	
+    	if(!propertyValid(district, num_beds, price, start, end))
+    		return false;
     	
     	Property new_prop = new Property(name, district, num_beds, price, start, end);
     	properties.add(new_prop);
     	new_prop.setPropertyId(properties.indexOf(new_prop));
+    	return true;
+    }
+    
+    public boolean propertyValid(int district, int num_beds, int price, Calendar start, Calendar end) {
+    	
+    	if(district < 0 || num_beds < 0 || price < 0)
+    		return false;
+    	
+    	if(start.compareTo(end) > 0) {
+    		System.out.println("Start after end");
+    		return false;
+    	}
+    	
+    	return true;
     }
 
     public int getAmountOfProperties() {
