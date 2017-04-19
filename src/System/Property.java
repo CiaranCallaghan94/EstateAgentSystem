@@ -26,7 +26,7 @@ class Property {
         this.name 			= name;
         this.district 		= district;
         this.num_bedrooms 	= num_bedrooms;
-        this.price			= price;
+        this.auction_price	= price;
         
         this.start_sale_time = start_sale_time;
         this.end_sale_time 	 = end_sale_time;
