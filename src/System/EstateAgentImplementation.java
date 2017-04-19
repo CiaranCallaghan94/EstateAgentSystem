@@ -42,7 +42,7 @@ public class EstateAgentImplementation{
 
 			if (property.isListed()) {
 
-				if (bidAmount > property.getHighest_bid()) {
+				if (bidAmount >= property.getAuction_price() && bidAmount > property.getHighest_bid()) {
 
 					property.setHighest_bid(bidAmount);
 					return true;

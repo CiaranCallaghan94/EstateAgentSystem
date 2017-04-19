@@ -9,7 +9,7 @@ class Property {
     private String 	name;
     private int 	district;
     private int		num_bedrooms;
-    private int		price;
+    private int		auction_price;
 
     private double  highest_bid = 0;
 
@@ -56,12 +56,12 @@ class Property {
         this.num_bedrooms = num_bedrooms;
     }
 
-    public int getPrice() {
-        return price;
+    public int getAuction_price() {
+        return auction_price;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setAuction_price(int price) {
+        this.auction_price = price;
     }
 
     public double getHighest_bid() {
