@@ -7,11 +7,9 @@ public class Booking {
 	Calendar view_time;
 	int client_id = - 1;
 	int booking_id;
-	boolean booked;
 	
 	public Booking(Calendar view_time) {
 		this.view_time = view_time;
-		booked = false;
 	}
 	
 	public int getBookingId() {
@@ -34,21 +32,16 @@ public class Booking {
 		return client_id;
 	}
 	
-	public boolean getBooked() {
-		return booked;
+	public void setClientId(int client_id) {
+		this.client_id = client_id;
 	}
-	
-	public void setBooked(boolean book) {
-		this.booked = book;
-	}
-	
+
 	public boolean setBooking(int client_id) {
 		
-		if(booked)
+		if(client_id != -1)
 			return false;
 		
 		this.client_id = client_id;
-		booked = true;
 		return true;
 	}
 	

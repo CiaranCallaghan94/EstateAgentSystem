@@ -14,8 +14,8 @@ class Property {
     private int		num_bedrooms;
     private Double	auction_price;
 
-    private Calendar start_sale_time;
-    private Calendar end_sale_time;
+    private Calendar sale_time_start;
+    private Calendar sale_time_end;
 
     
     private List<Bid> bid_history;
@@ -29,7 +29,7 @@ class Property {
     Property() {
     }
 
-    Property(NotificationManager notificationManager,String name, int district, int num_bedrooms, double auction_price, Calendar start_sale_time, Calendar end_sale_time) {
+    Property(NotificationManager notificationManager,String name, int district, int num_bedrooms, double auction_price, Calendar sale_time_start, Calendar sale_time_end) {
 
         this.notificationManager = notificationManager;
         this.name           = name;
@@ -37,8 +37,8 @@ class Property {
         this.num_bedrooms 	= num_bedrooms;
         this.auction_price	= auction_price;
         
-        this.start_sale_time = start_sale_time;
-        this.end_sale_time 	 = end_sale_time;
+        this.sale_time_start = sale_time_start;
+        this.sale_time_end 	 = sale_time_end;
         
         bid_history = new LinkedList<>();
         booking_manager = new BookingManager();
@@ -115,8 +115,8 @@ class Property {
 
                 // A size of one means that the bid we just added was the first bid
                 if (bid_history.size() == 1) {
-                    return "Initial bid sucessful";
-                } else return "Counter-bid succesful";
+                    return "Bid sucessful: Initial bid";
+                } else return "Bid sucessful: Counter-bid";
             } else return "Bid unsucessful: Bid too low. The highest bid is: " + highest_bid;
         }
         finally {
@@ -124,20 +124,20 @@ class Property {
         }
     }
 
-    public Calendar getStartSaleTime() {
-        return start_sale_time;
+    public Calendar getSaleTimeStart() {
+        return sale_time_start;
     }
 
-    public void setStartSaleTime(Calendar start_sale_time) {
-        this.start_sale_time = start_sale_time;
+    public void setSaleTimeStart(Calendar start_sale_time) {
+        this.sale_time_start = start_sale_time;
     }
 
-    public Calendar getEndSaleTime() {
-        return end_sale_time;
+    public Calendar getSaleTimeEnd() {
+        return sale_time_end;
     }
 
-    public void setEndSaleTime(Calendar end_sale_time) {
-        this.end_sale_time = end_sale_time;
+    public void setSaleTimeEnd(Calendar end_sale_time) {
+        this.sale_time_end = end_sale_time;
     }
     
     public List<Bid> getBids() {
@@ -151,7 +151,7 @@ class Property {
     public boolean isListed(){
 
         Calendar cal = Calendar.getInstance();
-        if(cal.compareTo(getStartSaleTime()) >= 0 && cal.compareTo(getEndSaleTime()) <= 0){
+        if(cal.compareTo(getSaleTimeStart()) >= 0 && cal.compareTo(getSaleTimeEnd()) <= 0){
             return true;
         }
         else return false;
@@ -164,7 +164,7 @@ class Property {
     public boolean setViewingTime(Calendar date) {
     	
     	// If viewing start date is after sale start date OR viewing end date is after sale end date
-    	if(date.compareTo(this.start_sale_time) < 0 || date.compareTo(this.end_sale_time) > 0) {
+    	if(date.compareTo(this.sale_time_start) < 0 || date.compareTo(this.sale_time_end) > 0) {
     		System.out.println("Invalid date");
     		return false;
     	}
