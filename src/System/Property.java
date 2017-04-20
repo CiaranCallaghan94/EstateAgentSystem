@@ -23,7 +23,8 @@ class Property {
     private BookingManager booking_manager;
 
     private NotificationManager notificationManager;
-    private final Lock lock = new ReentrantLock();
+    private final Lock bidLock = new ReentrantLock();
+    private final Lock viewingLock = new ReentrantLock();
 
     Property() {
     }
@@ -95,28 +96,32 @@ class Property {
     }
 
     public String setHighestBid(int client_id, double bid_amount) {
-        
-        if(!isListed())
-        	return "Bid unsucessful: Property not listed";
-        
-        double highest_bid = getHighestBid();
-        if(bid_amount > highest_bid) {
 
-            // Notifies the previous bid leader that they have been outbid, prompting them to make a counter offer
-            if(bid_history.size()>0) {
-                notificationManager.addNotification(bid_history.get(bid_history.size() - 1).getClientId(),
-                        "You have been outbid on property " + getName() + "(" + getPropertyId() + ") at a price of " +bid_amount );
-            }
-        	Bid new_bid = new Bid(client_id, bid_amount);
-        	bid_history.add(new_bid);
-        	
-        	// A size of one means that the bid we just added was the first bid
-        	if(bid_history.size() == 1) {
-    			return "Initial bid sucessful";
-    		}
-        	else return "Counter-bid succesful";
+        bidLock.lock();
+        try {
+            if (!isListed())
+                return "Bid unsucessful: Property not listed";
+
+            double highest_bid = getHighestBid();
+            if (bid_amount > highest_bid) {
+
+                // Notifies the previous bid leader that they have been outbid, prompting them to make a counter offer
+                if (bid_history.size() > 0) {
+                    notificationManager.addNotification(bid_history.get(bid_history.size() - 1).getClientId(),
+                            "You have been outbid on property " + getName() + "(" + getPropertyId() + ") at a price of " + bid_amount);
+                }
+                Bid new_bid = new Bid(client_id, bid_amount);
+                bid_history.add(new_bid);
+
+                // A size of one means that the bid we just added was the first bid
+                if (bid_history.size() == 1) {
+                    return "Initial bid sucessful";
+                } else return "Counter-bid succesful";
+            } else return "Bid unsucessful: Bid too low. The highest bid is: " + highest_bid;
         }
-        else return "Bid unsucessful: Bid too low. The highest bid is: " + highest_bid;
+        finally {
+            bidLock.unlock();
+        }
     }
 
     public Calendar getStartSaleTime() {
@@ -169,7 +174,13 @@ class Property {
     }
     
     public boolean setBooking(int client_id, int booking_id) {
-    	return booking_manager.setBooking(client_id, booking_id);
+        viewingLock.lock();
+        try {
+            return booking_manager.setBooking(client_id, booking_id);
+        }
+        finally{
+            viewingLock.unlock();
+        }
     }
 
     @Override
