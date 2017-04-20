@@ -2,6 +2,9 @@ package System;
 
 import java.util.Calendar;
 
+/**
+ *  Booking
+ */
 public class Booking {
 	
 	Calendar view_time;

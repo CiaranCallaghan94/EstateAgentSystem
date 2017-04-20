@@ -6,6 +6,11 @@ import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * Property is a property for which clients can put up for sale or to bid on.
+ * It contains details specific to the each individual property.
+ * It stores the start and finish time of the property auction.
+ */
 class Property {
 
 	private int		property_id;
@@ -88,6 +93,7 @@ class Property {
     	return bid_history.get(bid_history.size()-1);
     }
 
+    // Returns the highest bid currently on this property
     public double getHighestBid() {
     	if(bid_history.isEmpty())
     		return this.auction_price;
@@ -95,6 +101,8 @@ class Property {
     		return getLatestBid().getBidAmount();
     }
 
+    // Requires the bid lock to ensure only one bid can go through at a time to stop duplicate bids.
+    // Will error check the inputs and return a status of that bid eg.(fail or succeed).
     public String setHighestBid(int client_id, double bid_amount) {
 
         bidLock.lock();
@@ -148,6 +156,7 @@ class Property {
     	this.bid_history = bid_history;
     }
 
+    // Checks wether the current property is currently being auctioned.
     public boolean isListed(){
 
         Calendar cal = Calendar.getInstance();
@@ -172,7 +181,8 @@ class Property {
     	booking_manager.setViewings(date);
     	return true;
     }
-    
+
+    // Requires the viewing lock to ensure no bookings are made on the same viewing slot
     public boolean setBooking(int client_id, int booking_id) {
         viewingLock.lock();
         try {

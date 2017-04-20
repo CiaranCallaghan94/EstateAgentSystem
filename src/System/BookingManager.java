@@ -4,6 +4,10 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * BookingManager contains all the bookings for a specific property.
+ */
+
 public class BookingManager {
 
 	private List<Booking> bookings;

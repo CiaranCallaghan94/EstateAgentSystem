@@ -3,6 +3,10 @@ package System;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * NotificationManager stores all the notifications that are created.
+ * It enables the functionality to get all the notifications or to get the notifications specific to a client.
+ */
 
 public class NotificationManager {
 

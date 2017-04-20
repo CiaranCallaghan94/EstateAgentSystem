@@ -1,5 +1,9 @@
 package System;
 
+/**
+ *  Bid class is a bid object which is placed into the bid history of each property.
+ *  Bid contains the client_id of the client who made the bid and the amount the client bid.
+ */
 public class Bid {
 
 	private int client_id;

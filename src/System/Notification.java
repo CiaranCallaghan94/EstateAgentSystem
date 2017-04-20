@@ -1,5 +1,10 @@
 package System;
 
+/**
+ * Notification is an object which contains the client_id that the message will be sent to
+ * and notification_message which is the message itself
+ */
+
 public class Notification {
 
     private int client_id;

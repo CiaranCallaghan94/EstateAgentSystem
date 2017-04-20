@@ -9,6 +9,9 @@ import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ *  EstateAgentImplementation contains all the functionality clients can use when the server is running.
+ */
 // Service Endpoint
 @WebService
 public class EstateAgentImplementation{
