@@ -1,8 +1,8 @@
-package System;
+package estate_agent;
 
 /**
- *  Bid class is a bid object which is placed into the bid history of each property.
- *  Bid contains the client_id of the client who made the bid and the amount the client bid.
+ *  This object is responsible for holding the details of a particular bid.
+ *  It contains the client_id of the client who made the bid and the bid amount.
  */
 public class Bid {
 
