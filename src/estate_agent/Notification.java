@@ -1,4 +1,4 @@
-package System;
+package estate_agent;
 
 /**
  * Notification is an object which contains the client_id that the message will be sent to

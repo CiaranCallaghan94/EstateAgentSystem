@@ -1,9 +1,12 @@
-package System;
+package estate_agent;
 
 import java.util.Calendar;
 
 /**
- *  Booking
+ *  This object is responsible for holding the details of a particular booking.
+ *  This includes the date, booking_id and client_id.
+ *  If a booking has NOT been made, client_id will be -1, indicating such.
+ *  Else, the client_id will be of the client who made the bid.
  */
 public class Booking {
 	

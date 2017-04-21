@@ -1,4 +1,4 @@
-package System;
+package estate_agent;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,6 +24,7 @@ public class NotificationManager {
     public List<Notification> getNotificationsForClient(int client_id){
         List<Notification> specificNotifications = new LinkedList<>();
 
+        // Loop through and add notifications that are related to the client_id
         for(Notification n: allNotifications) {
             if (n.getClientId() == client_id) {
                 specificNotifications.add(n);

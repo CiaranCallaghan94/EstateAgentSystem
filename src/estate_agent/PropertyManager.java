@@ -1,4 +1,4 @@
-package System;
+package estate_agent;
 
 import java.util.Calendar;
 import java.util.LinkedList;

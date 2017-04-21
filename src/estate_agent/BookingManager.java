@@ -1,11 +1,11 @@
-package System;
+package estate_agent;
 
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * BookingManager contains all the bookings for a specific property.
+ *  This object is responsible for holding a list of Bookings
  */
 
 public class BookingManager {
@@ -20,6 +20,7 @@ public class BookingManager {
 		return bookings;
 	}
 	
+	// Set ID of booking to its index within the list
 	public void setViewings(Calendar date) {
 		
 		Booking booking = new Booking(date);

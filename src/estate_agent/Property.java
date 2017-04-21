@@ -1,4 +1,4 @@
-package System;
+package estate_agent;
 
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -7,9 +7,8 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * Property is a property for which clients can put up for sale or to bid on.
- * It contains details specific to the each individual property.
- * It stores the start and finish time of the property auction.
+ * This object contains all the details for a particular property.
+ * It contains all the details of the property and its bid history.
  */
 class Property {
 
@@ -22,7 +21,7 @@ class Property {
     private Calendar sale_time_start;
     private Calendar sale_time_end;
 
-    
+   
     private List<Bid> bid_history;
     
     private BookingManager booking_manager;
@@ -34,7 +33,7 @@ class Property {
     Property() {
     }
 
-    Property(NotificationManager notificationManager,String name, int district, int num_bedrooms, double auction_price, Calendar sale_time_start, Calendar sale_time_end) {
+    Property(NotificationManager notificationManager, String name, int district, int num_bedrooms, double auction_price, Calendar sale_time_start, Calendar sale_time_end) {
 
         this.notificationManager = notificationManager;
         this.name           = name;

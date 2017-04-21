@@ -1,4 +1,4 @@
-package System;
+package estate_agent;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -10,11 +10,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *  EstateAgentImplementation contains all the functionality clients can use when the server is running.
+ *  This object exposes the methods available for the client to call.
  */
 // Service Endpoint
 @WebService
-public class EstateAgentImplementation{
+public class EstateAgent{
 
 	private NotificationManager notificationManager = new NotificationManager();
 	private PropertyManager propertyManager = new PropertyManager(notificationManager);
