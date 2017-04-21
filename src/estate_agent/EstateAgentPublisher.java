@@ -18,5 +18,6 @@ public class EstateAgentPublisher {
     	
         EstateAgent manager = new EstateAgent();
         Endpoint.publish("http://localhost:8080/EstateAgent", manager);
+        System.out.println("Endpoint published");
     }
 }
